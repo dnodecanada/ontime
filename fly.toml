@@ -1,23 +1,24 @@
-# fly.toml app configuration file generated for on-time on 2026-03-12T06:15:46Z
-#
-# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
-#
-
 app = 'on-time'
 primary_region = 'ams'
 
 [build]
+
+[env]
+  TZ = "America/Toronto"
 
 [http_service]
   internal_port = 4001
   force_https = true
   auto_stop_machines = 'stop'
   auto_start_machines = true
-  min_machines_running = 0
+  min_machines_running = 1
   processes = ['app']
 
+[mounts]
+  source = "app_data"
+  destination = "/data"
+
 [[vm]]
-  memory = '1gb'
   cpu_kind = 'shared'
   cpus = 1
   memory_mb = 256
